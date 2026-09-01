@@ -1,0 +1,20 @@
+# DIU Campus Navigator - Manual Test Checklist
+
+T01 | Start program | Main menu appears without crash
+T02 | List locations | All indexed campus locations are displayed
+T03 | Search location | Case-insensitive search returns matching names
+T04 | Shortest route | Route contains valid start/end and non-negative distance
+T05 | Fastest route | ETA is displayed and route may differ from shortest
+T06 | Accessibility | Stair/inaccessible edges are avoided when possible
+T07 | Safer route | Risk/lighting penalties affect route selection
+T08 | Alternative routes | Distinct candidate routes are shown when available
+T09 | Road closure | Closing an edge causes future routes to avoid it
+T10 | Reopen edge | Reopening restores the edge to routing
+T11 | Nearest facility | Nearest matching facility is reported
+T12 | Emergency mode | Medical point and nearest gate are reported
+T13 | Data audit | Verification/confidence summary is displayed
+T14 | Override persistence | Saved edge override is loaded after restart
+T15 | Invalid input | Invalid menu/node input is rejected without crashing
+T16 | Same source/destination | Program handles zero-hop route gracefully
+T17 | No route | Closed/disconnected path reports no available route
+T18 | Build | GCC C11 pedantic build completes without warnings

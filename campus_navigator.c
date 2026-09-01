@@ -1,4 +1,4 @@
-src/campus_navigator.c/*
+/* src/campus_navigator.c
  * DIU Campus Navigator
  * Pure C (C11), zero external libraries.
  *

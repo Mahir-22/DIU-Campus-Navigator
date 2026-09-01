@@ -1,60 +1,204 @@
-# DIU Campus Navigator — Ultimate Algorithms Lab Edition
+🧭 DIU Campus Navigator
 
-A pure-C campus navigation system built around a weighted graph and Dijkstra's shortest-path algorithm.
+Intelligent Campus Routing Engine — Algorithms Lab Edition
 
-## Why this is a major upgrade
+<p align="center">
+  <b>Pure C11</b> • <b>Graph Algorithms</b> • <b>Dijkstra</b> • <b>Binary Min-Heap</b> • <b>Campus-Scale Routing</b>
+</p>
 
-The supplied version already models DIU locations as a weighted undirected graph and uses Dijkstra with an adjacency matrix. This version keeps Dijkstra as the academic core but upgrades the engineering around it:
+<p align="center">
+  A practical campus navigation engine that combines shortest-path algorithms with accessibility, safety, emergency routing, alternative paths, dynamic closures, and data-verification workflows.
+</p>
 
-- Adjacency list + binary min-heap priority queue
-- Shortest-distance route
-- Fastest walking route using edge walking speeds
-- Accessibility-aware route (avoids stairs/inaccessible links)
-- Safer walking preference
-- Up to 3 generated route alternatives
-- Dynamic road closures
-- Search by location name
-- Nearest facility finder
-- Emergency mode: nearest medical point + nearest gate
-- Turn-by-turn route text
-- Distance / ETA / hop / route-confidence reporting
-- Data accuracy audit
-- Field-measurement override file (`campus_overrides.csv`)
-- Manual edge metadata editor
-- Robust console input validation
-- Pure ISO C11; no Python, no external libraries
+🚀 What makes this project different?
 
-## Accuracy philosophy
+This is not just a basic Dijkstra demonstration.
 
-The algorithm can be exact for the graph data it receives, but it cannot manufacture real-world accuracy from estimated edge lengths.
+The project treats a campus as a weighted graph and turns that graph into a configurable routing engine. The academic core remains Dijkstra's shortest-path algorithm, while the engineering layer adds multiple routing objectives and real-world road metadata.
 
-The starter edge distances in this repository are carried over from the supplied course project. They should therefore be treated as a **seed dataset**, not as survey-grade measurements.
+Algorithm accuracy and map accuracy are intentionally separated. Dijkstra can be exact for the stored graph, but real-world distance accuracy depends on field-verified campus data.
 
-For a genuinely high-accuracy campus deployment, measure each walkable segment on-site (or from an authoritative campus GIS/map source), then enter the measured distance and mark the edge as verified through the Data / Road Control menu. The program can persist those values to `campus_overrides.csv`.
+✨ Feature Matrix
 
-This separation between **routing correctness** and **data correctness** is intentional and is one of the key engineering improvements.
+Navigation
 
-## Current campus-source note
+Algorithms
 
-DIU's current official location page lists Daffodil Smart City (DSC), Birulia, Savar, Dhaka-1216, while older DIU material refers to the permanent campus as Ashulia/Dattapara. Because official naming/address information can change over time, the project's campus graph should be treated as a versioned dataset and re-verified before any production deployment.
+Real-world Intelligence
 
-## Build
+🥇 Shortest-distance route
 
-### Linux / macOS
+Dijkstra
 
-```bash
+♿ Accessibility-aware routing
+
+⚡ Fastest walking route
+
+Binary min-heap
+
+🛡️ Safer-route preference
+
+🔀 Alternative routes
+
+Adjacency-list graph
+
+🚧 Dynamic road closures
+
+🧭 Turn-by-turn route text
+
+Path reconstruction
+
+🚨 Emergency navigation
+
+⏱️ ETA estimation
+
+Profile-based edge costs
+
+📏 Distance/data audit
+
+🔎 Campus search
+
+Route ranking
+
+💾 Persistent measurement overrides
+
+📍 Nearest facility
+
+Input validation
+
+✅ Verification/confidence reporting
+
+🧠 Core Algorithm Architecture
+
+                 CAMPUS LOCATIONS
+                        │
+                        ▼
+              ┌──────────────────┐
+              │ Weighted Graph   │
+              │ Adjacency List   │
+              └────────┬─────────┘
+                       │
+                       ▼
+              ┌──────────────────┐
+              │ Routing Profile  │
+              │                  │
+              │ Shortest         │
+              │ Fastest          │
+              │ Accessible       │
+              │ Safer            │
+              └────────┬─────────┘
+                       │
+                       ▼
+              ┌──────────────────┐
+              │ Dijkstra +       │
+              │ Binary Min-Heap  │
+              └────────┬─────────┘
+                       │
+                       ▼
+              ┌──────────────────┐
+              │ Path Reconstruction│
+              └────────┬─────────┘
+                       │
+                       ▼
+                BEST ROUTE OUTPUT
+
+Complexity
+
+For V locations and E walkable connections:
+
+Dijkstra + binary heap: O((V + E) log V) typical bound
+
+Graph storage: O(V + E)
+
+Alternative routes repeatedly invoke the route engine, so their total cost depends on the number of generated candidates.
+
+🗺️ Routing Modes
+
+🥇 Shortest Distance
+
+Minimizes total walking distance in meters.
+
+⚡ Fastest Walking
+
+Minimizes estimated travel time using the configured walking speed of each edge.
+
+♿ Accessibility-Aware
+
+Rejects edges marked inaccessible or identified as stairs. For a real deployment, ramps, elevators, surface condition, gates, and barriers should also be field-mapped.
+
+🛡️ Safer Walking
+
+Combines distance with configurable risk and lighting penalties. These values must be verified before being treated as operational safety information.
+
+🚨 Emergency Navigation
+
+Emergency mode is designed for rapid campus assistance workflows:
+
+Finds the nearest configured medical facility.
+
+Finds the nearest campus gate.
+
+Uses the same routing engine as normal navigation.
+
+Respects currently closed edges.
+
+This is an academic routing feature, not a replacement for official campus emergency services.
+
+🚧 Dynamic Road Control
+
+Edges can be marked OPEN or CLOSED.
+
+When a connection is closed, future route calculations automatically avoid it. This models temporary construction, maintenance, blocked walkways, or controlled access.
+
+📏 Data Accuracy Model
+
+Every edge can carry more than a simple distance value:
+
+Distance (meters)
+Walking speed (km/h)
+Path / road type
+Accessibility
+Lighting
+Risk factor
+Open / closed state
+Verification status
+Source label
+
+Accuracy workflow
+
+Split long corridors into actual walking segments and decision points.
+
+Measure along the walkable path rather than using straight-line distance.
+
+Record stairs, inaccessible links, gates, barriers, and closures.
+
+Verify special walking-speed assumptions.
+
+Verify lighting/risk metadata on-site.
+
+Save measured overrides.
+
+Re-run route test cases.
+
+Commit the verified dataset separately from the algorithm changes.
+
+The repository's starter graph is inherited from the supplied course project and should be treated as a seed dataset, not as survey-grade GIS data.
+
+🛠️ Build & Run
+
+Linux / macOS
+
 make
 ./campus_navigator
-```
 
-### Windows (MinGW GCC)
+Windows — MinGW GCC
 
-```bash
 gcc -std=c11 -O2 -Wall -Wextra -pedantic src/campus_navigator.c -lm -o campus_navigator.exe
 campus_navigator.exe
-```
 
-## Main menu
+No Python runtime and no external libraries are required.
+
+🎮 Main Menu
 
 1. Plan a route
 2. Search campus locations
@@ -65,104 +209,120 @@ campus_navigator.exe
 7. About / algorithm analysis
 0. Exit
 
-## Routing profiles
+🧪 Testing
 
-### Shortest distance
-Minimizes the sum of edge lengths in meters.
+The repository includes a manual test checklist in tests/test_cases.txt.
 
-### Fastest walking time
-Minimizes estimated walking time using the speed assigned to each edge.
+Important scenarios include:
 
-### Wheelchair/accessibility-aware
-Rejects edges marked inaccessible and stair segments. This profile is designed to demonstrate profile-based routing, not to claim that the campus is fully accessibility-mapped.
+shortest vs fastest route
 
-### Safer walking preference
-Uses distance plus penalties for higher risk and unlit segments. Risk/lighting values should be campus-verified before real deployment.
+accessibility constraints
 
-## Data model
+safer routing
 
-Each edge stores:
+alternative routes
 
-- distance in meters (`double`)
-- walking speed in km/h
-- road/path type
-- wheelchair/accessibility flag
-- lighting flag
-- risk factor
-- temporary blocked/closed flag
-- verification flag
-- source label
+road closure/reopening
 
-That makes the system much more realistic than storing only a single integer weight.
+nearest facility
 
-## Algorithms
+emergency navigation
 
-### Dijkstra
-The primary route engine remains Dijkstra, which is appropriate because all route costs are non-negative.
+invalid input handling
 
-### Binary min-heap
-The priority queue reduces repeated minimum selection compared with a full `V` scan on every iteration.
+override persistence
 
-### Alternative routes
-The project generates route candidates by temporarily banning route edges and rerunning the router, then ranks distinct candidates by the selected profile's objective cost.
+no-route conditions
 
-This is intentionally presented as an educational alternative-route technique rather than claiming a full production-grade K-shortest-path implementation.
+📁 Project Structure
 
-## Complexity
-
-With an adjacency list and binary heap:
-
-- Dijkstra: `O((V + E) log V)` typical bound for non-negative edge weights
-- Space: `O(V + E)`
-
-The alternative-route feature repeatedly invokes Dijkstra, so its total cost depends on the number of generated candidates.
-
-## High-accuracy upgrade procedure
-
-1. Split long corridors into actual walking segments and junctions.
-2. Measure each segment along the walkable path, not by visual straight-line distance.
-3. Mark inaccessible/stair/closed segments explicitly.
-4. Record walking speed only where a segment is meaningfully different.
-5. Verify lighting/safety metadata on-site.
-6. Save the resulting overrides through the built-in editor.
-7. Re-run route tests for key origin/destination pairs.
-8. Version-control the verified dataset with the code.
-
-## Important project limitation
-
-The included graph is based on the locations and edge lengths from the supplied student code. It is **not** an authoritative DIU GIS dataset. Do not present it as GPS-precise or safety-certified without campus verification.
-
-## Suggested demo scenarios
-
-Use these during viva/demo:
-
-- Civil Dept Building -> Practice Ground
-- Gate 1 -> Medical Center
-- Any location -> nearest gate
-- Accessibility route vs shortest route
-- Close a key edge, then calculate again
-- Edit a distance, save overrides, restart, and confirm persistence
-- Search for `gate`, `field`, `lab`, `bonomaya`, etc.
-
-## Repository structure
-
-```text
-diu-campus-navigator/
+DIU-campus-navigator/
 ├── src/
 │   └── campus_navigator.c
 ├── docs/
-│   └── DATA_ACCURACY.md
+│   ├── DATA_ACCURACY.md
+│   ├── FEATURE_MATRIX.md
+│   ├── REPORT_UPDATE.md
+│   └── VIVA_GUIDE.md
+├── tests/
+│   └── test_cases.txt
 ├── .gitignore
 ├── LICENSE
 ├── Makefile
 ├── README.md
-└── campus_overrides.csv        # created/updated by the program when used
-```
+└── campus_overrides.example.csv
 
-## References
+📚 Documentation
 
-1. Dijkstra, E. W. (1959), shortest-path algorithm.
-2. Cormen, Leiserson, Rivest, Stein, *Introduction to Algorithms*.
-3. Daffodil International University official location page.
-4. Daffodil International University official/archived campus materials.
-5. OpenStreetMap routing guidance for pedestrian/accessibility-aware routing.
+Data Accuracy Guide
+
+Feature Matrix
+
+Report Update Notes
+
+Viva Guide
+
+🎓 Academic Value
+
+The project demonstrates practical application of:
+
+Graph representation
+
+Weighted graphs
+
+Dijkstra's shortest-path algorithm
+
+Priority queues
+
+Binary heaps
+
+Path reconstruction
+
+Complexity analysis
+
+Greedy optimization
+
+Input validation
+
+Data modelling
+
+State changes in graph routing
+
+It therefore connects the Algorithms course theory with a concrete campus-scale problem.
+
+🧭 Roadmap
+
+Field-verified campus walking graph
+
+Finer-grained junction/segment modelling
+
+Authoritative GIS integration
+
+A* routing with verified coordinates
+
+Full K-shortest-path implementation (e.g. Yen's algorithm)
+
+Live construction/closure feed
+
+Opening-hours/access restrictions
+
+GPS map matching in a separate UI layer
+
+Multilingual/voice guidance
+
+Web/mobile front end connected to the C routing engine
+
+⚠️ Current Limitations
+
+The routing engine is designed as an Algorithms Lab project. Its computational result is only as accurate as the graph data supplied to it. The included seed distances and metadata are not an authoritative campus survey and must be field-verified before real operational use.
+
+📜 License
+
+Released under the MIT License. See LICENSE.
+
+👨‍💻 Project
+
+DIU Campus Navigator — Ultimate Algorithms Lab Edition
+
+Built as a pure C11 graph-algorithms project with a focus on practical campus navigation, algorithmic correctness, usability, and data quality.

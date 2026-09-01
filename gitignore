@@ -1,0 +1,20 @@
+# Build artifacts
+campus_navigator
+campus_navigator.exe
+*.o
+*.obj
+*.out
+*.exe
+
+# Runtime-generated local data
+campus_overrides.csv
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
